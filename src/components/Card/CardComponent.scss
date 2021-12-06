@@ -1,0 +1,12 @@
+.card {
+  margin: 3vh;
+  text-decoration: none;
+  color: black;
+  &:hover {
+    color: rgb(90, 90, 90);
+  }
+}
+
+.caught {
+  background-color: #f15733 !important;
+}

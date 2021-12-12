@@ -1,20 +1,44 @@
-import React from 'react';
-
-import picachu from '../picachu.png';
-
-import CardConmponent from '../../components/Card/CardComponent';
+import React, { useState, useEffect } from 'react';
+import { getCaughtPokemons, releasePokemon } from '../../api/localStorage';
+import { getPokemonImage } from '../../api/pokeApi';
+import PokemonCard from '../../components/PokemonCard/PokemonCard';
 
 function CaughtPokemons() {
-  let [pokemons, setPokemons] = React.useState([
-    { name: 'pikachy', img: picachu, id: 1, catched: false },
-    { name: 'wjnwk', img: picachu, id: 2, catched: false },
-    { name: 'kjnwq', img: picachu, id: 3, catched: false },
-  ]);
+  let [pokemons, setPokemons] = useState([]);
+
+  useEffect(() => {
+    let caughtPokemons = getCaughtPokemons();
+    for (let i = 0; i < caughtPokemons.length; i++) {
+      caughtPokemons[i].img = getPokemonImage(caughtPokemons[i].id);
+      caughtPokemons[i].caught = true;
+      delete caughtPokemons[i].dayDate;
+      delete caughtPokemons[i].timeDate;
+    }
+    setPokemons(caughtPokemons);
+  }, []);
+
+  function onClickPokemon(id, event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const newPokemons = pokemons.filter(function (pokemon) {
+      return pokemon.id !== id;
+    });
+    releasePokemon(id);
+    setPokemons(newPokemons);
+  }
+
   return (
     <div className="container">
       <h1 className="main-header">Caught Pokemons</h1>
       <div className="pokemon-container">
-        <CardConmponent pokemons={pokemons} />
+        {pokemons.map((pokemon) => (
+          <PokemonCard
+            pokemon={pokemon}
+            onClickPokemon={onClickPokemon}
+            key={pokemon.id}
+          />
+        ))}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import './PokemonInfo.scss';
 import { useParams } from 'react-router-dom';
 import { getCaughtPokemons } from '../../api/localStorage';
 import { getPokemonById, getPokemonImage } from '../../api/pokeApi';
+import Spinner from 'react-bootstrap/Spinner';
 
 function PokemonInfo() {
   let [pokemonInfo, setPokemonInfo] = useState(null);
@@ -54,7 +55,7 @@ function PokemonInfo() {
     <div className="pokemon-info">
       {pokemonInfo ? (
         <>
-          <h1 className="pokemon-info__name">{pokemonInfo.name}</h1>
+          <div className="pokemon-info__white-stripe"></div>
           <div className="pokemon-info__data">
             <img
               className="pokemon-info__image"
@@ -62,19 +63,44 @@ function PokemonInfo() {
               alt="picachu"
             />
             <div className="pokemon-info__resume">
-              <p>Abilities: {pokemonInfo.abilities}</p>
-              <p>Types: {pokemonInfo.types}</p>
-              <p>Weight: {pokemonInfo.weight}</p>
-              <p>Status: {pokemonInfo.status}</p>
-              <p>
-                Date: {pokemonInfo.dayDate} <br /> {pokemonInfo.timeDate}
-              </p>
-              <p>Id: {pokemonId}</p>
+              <h1 className="pokemon-info__name">
+                {pokemonInfo.name} <span className="pokemon-info__id">#{pokemonId}</span>
+              </h1>
+
+              <div className="pokemon-info__characteristics">
+                <div className="pokemon-info__keys">
+                  <p className="pokemon-info__info-name">Abilities:</p>
+                  <p className="pokemon-info__info-name">Types: </p>
+                  <p className="pokemon-info__info-name">Weight:</p>
+                  <p className="pokemon-info__info-name">Status:</p>
+                  {pokemonInfo.status === 'caught' ? (
+                    <p className="pokemon-info__info-name">Date:</p>
+                  ) : (
+                    ''
+                  )}
+                </div>
+                <div className="pokemon-info__values">
+                  <p>{pokemonInfo.abilities}</p>
+                  <p>{pokemonInfo.types}</p>
+                  <p>{pokemonInfo.weight}</p>
+                  <p>{pokemonInfo.status} </p>
+                  {pokemonInfo.status === 'caught' ? (
+                    <>
+                      {pokemonInfo.dayDate} <br /> <br />
+                      {pokemonInfo.timeDate}
+                    </>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </>
       ) : (
-        'Loading'
+        <div className="spinner-container">
+          <Spinner animation="border" />
+        </div>
       )}
     </div>
   );

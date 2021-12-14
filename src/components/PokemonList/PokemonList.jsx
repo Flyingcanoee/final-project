@@ -8,6 +8,7 @@ import {
 } from '../../api/localStorage.js';
 import { getAllPokemons } from '../../api/pokeApi';
 import './PokemonList.scss';
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function PokemonList() {
   let [pokemons, setPokemons] = useState([]);
@@ -75,22 +76,30 @@ export default function PokemonList() {
 
   return (
     <>
-      <div className="pokemon-container">
-        {pokemons.map((pokemon) => {
-          return (
-            <PokemonCard
-              pokemon={pokemon}
-              onClickPokemon={onClickPokemon}
-              key={pokemon.id}
-            />
-          );
-        })}
-      </div>
-      <div className="btn-container">
-        <Button onClick={onClickLoadMore} className="loading">
-          Load more
-        </Button>
-      </div>
+      {pokemons.length > 0 ? (
+        <>
+          <div className="pokemon-container">
+            {pokemons.map((pokemon) => {
+              return (
+                <PokemonCard
+                  pokemon={pokemon}
+                  onClickPokemon={onClickPokemon}
+                  key={pokemon.id}
+                />
+              );
+            })}
+          </div>
+          <div className="btn-container">
+            <Button onClick={onClickLoadMore} className="loading">
+              LOAD MORE
+            </Button>
+          </div>
+        </>
+      ) : (
+        <div className="spinner-container">
+          <Spinner animation="border" />
+        </div>
+      )}
     </>
   );
 }

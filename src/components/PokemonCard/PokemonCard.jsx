@@ -15,20 +15,21 @@ export default function PokemonCard(props) {
       as={Link}
       to={`/pokemon-info/${pokemon.id}`}
     >
+      <div className="pokemon-card__white-stripe"></div>
+      <Card.Title>
+        {pokemon.name}
+        <br />
+        <span className="pokemon-id">#{pokemon.id}</span>
+      </Card.Title>
       <Card.Img variant="top" src={getPokemonImage(pokemon.id)} />
       <Card.Body>
-        <Card.Title>{pokemon.name}</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the bulk of the
-          card's content.
-        </Card.Text>
         <Button
           className={pokemon.caught ? 'pokemon-card__caught' : ''}
           variant="primary"
           onClick={(event) => props.onClickPokemon(pokemon.id, event)}
           key={pokemon.id}
         >
-          {pokemon.caught ? 'Release' : 'Catch'}
+          {pokemon.caught ? 'RELEASE' : 'CATCH'}
         </Button>
       </Card.Body>
     </Card>

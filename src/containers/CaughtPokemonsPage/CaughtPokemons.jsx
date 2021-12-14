@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { getCaughtPokemons, releasePokemon } from '../../api/localStorage';
 import { getPokemonImage } from '../../api/pokeApi';
 import PokemonCard from '../../components/PokemonCard/PokemonCard';
+import Spinner from 'react-bootstrap/Spinner';
+import Header from '../../components/Header/Header.jsx';
 
 function CaughtPokemons() {
-  let [pokemons, setPokemons] = useState([]);
+  let [pokemons, setPokemons] = useState(null);
 
   useEffect(() => {
     let caughtPokemons = getCaughtPokemons();
@@ -30,16 +32,24 @@ function CaughtPokemons() {
 
   return (
     <div className="container">
-      <h1 className="main-header">Caught Pokemons</h1>
-      <div className="pokemon-container">
-        {pokemons.map((pokemon) => (
-          <PokemonCard
-            pokemon={pokemon}
-            onClickPokemon={onClickPokemon}
-            key={pokemon.id}
-          />
-        ))}
-      </div>
+      <Header title="Caught Pokemons" />
+      {pokemons ? (
+        <>
+          <div className="pokemon-container">
+            {pokemons.map((pokemon) => (
+              <PokemonCard
+                pokemon={pokemon}
+                onClickPokemon={onClickPokemon}
+                key={pokemon.id}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className="spinner-container">
+          <Spinner animation="border" />
+        </div>
+      )}
     </div>
   );
 }

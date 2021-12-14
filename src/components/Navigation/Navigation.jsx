@@ -6,7 +6,7 @@ import { Nav } from 'react-bootstrap';
 
 export default function Navigation() {
   return (
-    <Navbar bg="primary" variant="dark">
+    <Navbar className="navigation" bg="primary" variant="dark">
       <Container>
         <Navbar.Brand href="/">Pokedex</Navbar.Brand>
         <Nav className="me-auto">

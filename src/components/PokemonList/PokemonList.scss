@@ -1,8 +1,32 @@
-.loading {
-  text-align: center;
-}
-
 .btn-container {
   width: 100%;
   text-align: center;
+  button.loading {
+    text-align: center;
+    margin: 30px;
+    background-color: #505050;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    border: none;
+    width: 150px;
+    transition: background-color 1s ease;
+    outline: none;
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      background-color: #827f7f;
+      border: none;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
 }

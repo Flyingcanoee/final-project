@@ -32,7 +32,7 @@ function CaughtPokemons() {
 
   return (
     <div className="container">
-      <Header title="Caught Pokemons" />
+      <Header>Caught Pokemons</Header>
       {pokemons ? (
         <>
           <div className="pokemon-container">
@@ -46,7 +46,7 @@ function CaughtPokemons() {
           </div>
         </>
       ) : (
-        <div className="spinner-container">
+        <div className="d-flex justify-content-center">
           <Spinner animation="border" />
         </div>
       )}

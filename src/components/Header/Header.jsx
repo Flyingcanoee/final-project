@@ -1,5 +1,12 @@
 import React from 'react';
 import './Header.scss';
-export default function Header(props) {
-  return <h1 className="main-header">{props.title}</h1>;
+import PropTypes from 'prop-types';
+
+function Header(props) {
+  return <h1 className="header">{props.children}</h1>;
 }
+
+Header.propTypes = {
+  title: PropTypes.string,
+};
+export default Header;

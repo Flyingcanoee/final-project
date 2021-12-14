@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header.jsx';
 function MainPage() {
   return (
     <div className="container">
-      <Header title="Pokédex" />
+      <Header>Pokédex</Header>
       <PokemonList />
     </div>
   );

@@ -31,16 +31,13 @@ export default function PokemonList() {
           let pokemonId = pokemonUrl.slice(34, -1);
           pokemon.id = pokemonId;
           let foundPokemon = caughtPokemons.find((pokemon) => pokemon.id === pokemonId);
-          if (foundPokemon) {
-            pokemon.caught = true;
-          } else {
-            pokemon.caught = false;
-          }
+          pokemon.caught = Boolean(foundPokemon);
         }
         setPokemons(pokemons.concat(pokemonInfo.results));
         return pokemonInfo;
       })
       .catch(function (error) {
+        alert("Couldn't load pokemons.");
         console.log(error);
       });
   }, [pageNumber]);
@@ -51,34 +48,30 @@ export default function PokemonList() {
 
     const caughtPokemons = getCaughtPokemons();
     let foundPokemon = caughtPokemons.find((pokemon) => pokemon.id === id);
-    let newPokemons;
-    if (!foundPokemon) {
-      newPokemons = pokemons.map((pokemon) => {
+    let newPokemons = pokemons.map((pokemon) => {
+      if (!foundPokemon) {
         if (pokemon.id === id) {
           let dayDate = new Date().toLocaleDateString();
           let timeDate = new Date().toLocaleTimeString();
           pokemon.caught = true;
           catchPokemon(id, dayDate, timeDate, pokemon.name);
         }
-        return pokemon;
-      });
-    } else {
-      newPokemons = pokemons.map((pokemon) => {
+      } else {
         if (pokemon.id === id) {
           pokemon.caught = false;
           releasePokemon(id);
         }
-        return pokemon;
-      });
-    }
+      }
+      return pokemon;
+    });
     setPokemons(newPokemons);
   }
 
   return (
-    <>
+    <div className="pokemon-list">
       {pokemons.length > 0 ? (
         <>
-          <div className="pokemon-container">
+          <div className="pokemon-list__container">
             {pokemons.map((pokemon) => {
               return (
                 <PokemonCard
@@ -89,17 +82,17 @@ export default function PokemonList() {
               );
             })}
           </div>
-          <div className="btn-container">
-            <Button onClick={onClickLoadMore} className="loading">
+          <div className="pokemon-list__btn-container">
+            <Button onClick={onClickLoadMore} className="pokemon-list__loading">
               LOAD MORE
             </Button>
           </div>
         </>
       ) : (
-        <div className="spinner-container">
+        <div className="pokemon-list__spinner-container">
           <Spinner animation="border" />
         </div>
       )}
-    </>
+    </div>
   );
 }

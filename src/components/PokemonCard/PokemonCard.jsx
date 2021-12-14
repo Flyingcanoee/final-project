@@ -4,8 +4,9 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { getPokemonImage } from '../../api/pokeApi';
+import PropTypes from 'prop-types';
 
-export default function PokemonCard(props) {
+function PokemonCard(props) {
   const pokemon = props.pokemon;
 
   return (
@@ -19,7 +20,7 @@ export default function PokemonCard(props) {
       <Card.Title>
         {pokemon.name}
         <br />
-        <span className="pokemon-id">#{pokemon.id}</span>
+        <span className="pokemon-card__id">#{pokemon.id}</span>
       </Card.Title>
       <Card.Img variant="top" src={getPokemonImage(pokemon.id)} />
       <Card.Body>
@@ -35,3 +36,9 @@ export default function PokemonCard(props) {
     </Card>
   );
 }
+
+PokemonCard.propTypes = {
+  pokemon: PropTypes.object,
+  onClickPokemon: PropTypes.object,
+};
+export default PokemonCard;

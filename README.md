@@ -8,3 +8,6 @@
 npm install
 npm start
 ```
+Демо: https://flyingcanoee.github.io/final-project/
+
+![Иллюстрация к проекту](https://github.com/Flyingcanoee/final-project/raw/main/Pokedex.gif)

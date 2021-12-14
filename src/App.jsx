@@ -4,12 +4,17 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import MainPage from './containers/MainPage/MainPage.jsx';
 import CaughtPokemons from './containers/CaughtPokemonsPage/CaughtPokemons.jsx';
 import PokemonInfo from './containers/PokemonInfo/PokemonInfo.jsx';
+// import { createBrowserHistory } from 'history';
+
+// export const history = createBrowserHistory({
+//   basename: process.env.PUBLIC_URL
+// });
 
 function App() {
   return (
     <>
-      <Navigation />
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
+        <Navigation />
         <Switch>
           <Route path="/caught-pokemons">
             <CaughtPokemons />
